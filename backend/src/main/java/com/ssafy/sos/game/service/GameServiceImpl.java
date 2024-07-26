@@ -9,11 +9,13 @@ import com.ssafy.sos.game.util.GameRole;
 import com.ssafy.sos.game.util.GameStatus;
 import com.ssafy.sos.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService {
@@ -195,7 +197,7 @@ public class GameServiceImpl implements GameService {
         // 이미 다른 해군이 고른 번호라면
         game = board.getGameMap().get(gameId);
         if (selectedNode == game.getCurrentPosition()[1] || selectedNode == game.getCurrentPosition()[2] || selectedNode == game.getCurrentPosition()[3]) {
-            System.out.println("이미 다른 해군에 의해 선택된 위치입니다. 다른 위치에서 시작해주세요.");
+            log.info("이미 다른 해군에 의해 선택된 위치입니다. 다른 위치에서 시작해주세요.");
             return null;
         }
         game.getCurrentPosition()[marineNumber] = selectedNode;
@@ -360,7 +362,6 @@ public class GameServiceImpl implements GameService {
         room.getInRoomPlayers().add(player);
         room.setGameMode(gameMode);
 
-        System.out.println("Room Number: " + gameId);
         return room;
     }
 
