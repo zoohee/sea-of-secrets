@@ -107,7 +107,6 @@ public class NFTService {
         try {
             restTemplate.postForObject(BLOCK_SERVER_URL + "/nft", requestEntity, Void.class);
         } catch (Exception e) {
-            System.out.println("hello");
             throw new Exception(e);
         }
     }

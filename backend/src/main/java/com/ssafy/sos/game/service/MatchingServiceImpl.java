@@ -35,7 +35,6 @@ public class MatchingServiceImpl implements MatchingService {
             };
         }
         matchingQueue.add(player);
-        System.out.println(matchingQueue);
 
         if (matchingQueue.size() >= 2) {
             matchPlayers();
@@ -48,8 +47,6 @@ public class MatchingServiceImpl implements MatchingService {
     public void matchPlayers() {
         Player playerOne = matchingQueue.poll();
         Player playerTwo = matchingQueue.poll();
-        System.out.println(playerOne);
-        System.out.println(playerTwo);
 
         // 첫번째 플레이어를 호스트로 방을 만들고 두번째 플레이어 방에 입장
         Room room = gameService.makeRoom(playerOne, GameMode.ONE_VS_ONE);

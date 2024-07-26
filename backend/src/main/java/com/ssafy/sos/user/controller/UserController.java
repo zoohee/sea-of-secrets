@@ -104,7 +104,6 @@ public class UserController {
 
         UserEntity userInfo = userService.getUserInfo(user);
         String name = productName.get("productName");
-        System.out.println(name);
         boolean result = userService.choicePiece(userInfo, name);
 
         if (result) {

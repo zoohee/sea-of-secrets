@@ -48,9 +48,7 @@ public class MessageController {
                 "message: session ID is null")
                 .toString();
 
-        System.out.println(sessionId);
         board.sessionMap.put(sessionId, new ArrayList<>());
-        System.out.println(board.getSessionMap());
     }
 
     // 소켓 연결 해제시 실행
@@ -843,7 +841,6 @@ public class MessageController {
     public void init(ClientInitMessage message, StompHeaderAccessor accessor) {
         String gameId = message.getGameId();
         Game game = board.getGameMap().get(gameId);
-        System.out.println(game.getGameStatus());
         boolean lockRespond = game.isLockRespond();
 
         // 게임 시작 (클 -> 서)
@@ -852,7 +849,6 @@ public class MessageController {
             game.setGameStatus(IN_GAME);
 
             List<String> sessionInfo = board.getSessionMap().getOrDefault(accessor.getSessionId(), null);
-            System.out.println("sessionInfo: " + sessionInfo);
             sessionInfo.add(message.getSender());
             sessionInfo.add(gameId);
 
