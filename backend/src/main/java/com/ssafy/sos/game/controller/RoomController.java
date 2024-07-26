@@ -6,6 +6,7 @@ import com.ssafy.sos.game.domain.RoomRequest;
 import com.ssafy.sos.game.domain.Room;
 import com.ssafy.sos.game.service.GameService;
 import com.ssafy.sos.game.service.MatchingService;
+import com.ssafy.sos.global.aspect.ExeTimer;
 import com.ssafy.sos.user.domain.CustomOAuth2User;
 import com.ssafy.sos.user.domain.UserEntity;
 import com.ssafy.sos.user.service.UserService;
@@ -27,18 +28,17 @@ public class RoomController {
     private final UserService userService;
     private final Board board;
 
+    @ExeTimer
     @PostMapping("/make")
     public ResponseEntity<Room> makeRoom(@RequestBody RoomRequest roomRequest,
                                          Authentication authentication) {
-//        Boolean isMember = (authentication != null);
+
         UserEntity userInfo = null;
         if (authentication != null) {
             CustomOAuth2User user = (CustomOAuth2User) authentication.getPrincipal();
             userInfo = userService.getUserInfo(user);
-            System.out.println("userInfo.getUsername() : " + userInfo.getUsername());
         }
 
-        System.out.println("authentication : " + authentication);
         Player player = Player.builder()
                 .nickname(roomRequest.getNickname())
                 .userInfo(userInfo)
@@ -49,10 +49,11 @@ public class RoomController {
 
     }
 
+    @ExeTimer
     @PostMapping("/enter")
     public ResponseEntity<?> enterRoom(@RequestBody RoomRequest roomRequest,
                                        Authentication authentication) {
-//        Boolean isMember = (authentication != null);
+
         UserEntity userInfo = null;
         if (authentication != null) {
             CustomOAuth2User user = (CustomOAuth2User) authentication.getPrincipal();
@@ -87,10 +88,11 @@ public class RoomController {
         return ResponseEntity.ok(room);
     }
 
+    @ExeTimer
     @PostMapping("/matching")
     public ResponseEntity<?> tryMatching(@RequestBody RoomRequest roomRequest,
                                          Authentication authentication) {
-//        Boolean isMember = (authentication != null);
+
         UserEntity userInfo = null;
         if (authentication != null) {
             CustomOAuth2User user = (CustomOAuth2User) authentication.getPrincipal();
@@ -101,6 +103,7 @@ public class RoomController {
                 .nickname(roomRequest.getNickname())
                 .userInfo(userInfo)
                 .build();
+
         if (matchingService.enqueue(player)) {
             return ResponseEntity.ok("OK");
         } else {
