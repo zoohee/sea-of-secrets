@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 @Service
 @RequiredArgsConstructor
 public class GameTimerServiceImpl implements GameTimerService {
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(6);
     private final ApplicationEventPublisher eventPublisher;
     private final ConcurrentHashMap<String, ScheduledFuture<?>> futures = new ConcurrentHashMap<>();
 
